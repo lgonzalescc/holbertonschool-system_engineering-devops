@@ -1,5 +1,6 @@
-#Using Puppet, install flask from pip3.
-exec {'install_flask':
-  command  => 'pip3 install Flask==2.1.0',
-  provider => shell,
+#!/usr/bin/env pup
+# This manifest kills a process named killmenow.
+exec { 'pkill':
+  command => 'pkill killmenow',
+  path    => '/usr/local/bin/:/bin/',
 }
