@@ -1,20 +1,12 @@
-# Install Nginx web server (w/ Puppet)
-package { 'nginx':
-  ensure => installed,
-}
+# Install Nginx web server (All previous puppet)
 
-file_line { 'line':
-  ensure => 'present',
-  path   => '/etc/nginx/sites-available/default',
-  after  => 'server_name _',
-  line   => 'rewrite ^/redirect_me https://www.youtube.com/watch?v=hdZUCjAQaGw permanent;',
-}
-
-file { '/var/www/html/index.html':
-  content => 'Hello World',
-}
-
-service { 'nginx':
-  ensure  => running,
-  require => Package['nginx'],
+exec {'install Nginx and redirect_me':
+  provider => shell,
+  command  => 'sudo apt-get -y update ;\
+                sudo apt-get -y install nginx ;\
+                sudo chown -R ubuntu /var/www ;\
+                echo "Hello World" | sudo tee /var/www/html/index.nginx-debian.html ;\
+                sudo sed -i "s/server_name _;/server_name _;\n\trewrite ^\/redirect_me https:\/\/github.com\/luisgonzacc permanent;/" \
+                    /etc/nginx/sites-available/default ;\
+                sudo service nginx start',
 }
