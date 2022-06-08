@@ -39,7 +39,7 @@ backend my-servers
         redirect scheme https if !{ ssl_fc }
 
         balance roundrobin
-        server 3713-web-01 34.73.183.133:80 check
+        server 3713-web-01 35.243.175.123:80 check
         server 3713-web-02 54.196.199.193:80 check
 
 # Configure frontend (http) listen all *:80 and solve with backend (my-servers)
