@@ -33,27 +33,17 @@ defaults
 	errorfile 503 /etc/haproxy/errors/503.http
 	errorfile 504 /etc/haproxy/errors/504.http
 
-# Configure frontend (http) listen all *:80 and solve with backend (my-servers)
 frontend http
-	bind *:80
+	bind 0.0.0.0:80
 	mode http
 	default_backend my-servers
 
-# Configure frontend (https-www) listen all *:443 and solve with backend (my-servers)
-frontend https-www
+frontend https-ssh
 
-	bind *:443 ssl crt /etc/letsencrypt/live/www.mediumlevel.tech/haproxy.pem
+	bind 0.0.0.0:443 ssl crt /etc/letsencrypt/live/www.mediumlevel.tech/haproxy.pem
 	http-request set-header X-Forwarded-Proto https
 	default_backend my-servers
 
-
-# Configure frontend (http) listen all *:80 and solve with backend (my-servers)
-frontend http
-	bind *:80
-	mode http
-	default_backend my-servers
-
-# Configure all server availables for frontend (http)
 backend my-servers
 	balance roundrobin 
 	redirect scheme https if !{ ssl_fc }
