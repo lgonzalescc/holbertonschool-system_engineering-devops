@@ -46,33 +46,12 @@ frontend https-ssh
 
 backend my-servers
 	balance roundrobin 
-	
-	#redirect scheme https if !{ ssl_fc }
-	redirect scheme https code 301 if !{ ssl_fc }
+	redirect scheme https if !{ ssl_fc }
 	server 3713-web-01 54.152.163.93:80 check
 	server 3713-web-02 54.196.199.193:80 check
 
 # Configure frontend (http) listen all *:80 and solve with backend (my-servers)
 frontend http
-	bind *:80
+	bind 0.0.0.0:80
 	mode http
 	default_backend my-servers
-
-# Configure all server availables for frontend (http)
-backend my-servers
-	balance roundrobin
-	server 3713-web-01 54.152.163.93:80 check
-	server 3713-web-02 54.196.199.193:80 check
-
-# Configure frontend (http) listen all *:80 and solve with backend (my-servers)
-frontend http
-	bind *:80
-	mode http
-	default_backend my-servers
-
-# Configure all server availables for frontend (http)
-backend my-servers
-	balance roundrobin
-	server 3713-web-01 54.152.163.93:80 check
-	server 3713-web-02 54.196.199.193:80 check
-
