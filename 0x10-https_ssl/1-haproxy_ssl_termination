@@ -34,13 +34,13 @@ defaults
 	errorfile 504 /etc/haproxy/errors/504.http
 
 frontend http
-	bind 0.0.0.0:80
+	bind *:80
 	mode http
 	default_backend my-servers
 
-frontend https-ssh
+frontend https-www
 
-	bind 0.0.0.0:443 ssl crt /etc/letsencrypt/live/www.mediumlevel.tech/haproxy.pem
+	bind *:443 ssl crt /etc/letsencrypt/live/www.mediumlevel.tech/haproxy.pem
 	http-request set-header X-Forwarded-Proto https
 	default_backend my-servers
 
