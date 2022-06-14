@@ -75,3 +75,4 @@ backend my-servers
 	balance roundrobin
 	server 3713-web-01 54.152.163.93:80 check
 	server 3713-web-02 54.196.199.193:80 check
+
