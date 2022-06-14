@@ -49,9 +49,3 @@ backend my-servers
 	redirect scheme https if !{ ssl_fc }
 	server 3713-web-01 54.152.163.93:80 check
 	server 3713-web-02 54.196.199.193:80 check
-
-# Configure frontend (http) listen all *:80 and solve with backend (my-servers)
-frontend http
-	bind 0.0.0.0:80
-	mode http
-	default_backend my-servers
