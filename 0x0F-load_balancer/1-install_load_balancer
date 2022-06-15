@@ -17,6 +17,6 @@ echo -e "\n# Configure frontend (http) listen all *:80 and solve with backend (m
 \nbackend my-servers\
 \n\tbalance roundrobin\
 \n\tserver 3713-web-01 54.152.163.93:80 check\
-\n\tserver 3713-web-02 54.196.199.193:80 check" >> /etc/haproxy/haproxy.cfg
+\n\tserver 3713-web-02 54.160.195.233:80 check" >> /etc/haproxy/haproxy.cfg
 ### Start service.
 sudo service haproxy restart
