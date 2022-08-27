@@ -39,10 +39,13 @@ frontend http
 	mode http
 	default_backend my-servers
 
-frontend http-ssh
-	bind 0.0.0.0:443 ssl crt /etc/letsencrypt/live/www.mediumlevel.tech/combine.pem
+
+# Configure frontend (https-www) listen all *:443 and solve with backend (my-servers)
+frontend http-www
+	bind *:443 ssl crt /etc/letsencrypt/live/www.mediumlevel.tech/haproxy.pem
 	http-request set-header X-Forwarded-Proto https
 	default_backend web-server
+
 
 # Configure all server availables for frontend (http)
 backend my-servers
@@ -50,3 +53,4 @@ backend my-servers
 	redirect scheme https if !{ ssl_fc }
 	server 3713-web-01 54.167.116.64:80 check
 	server 3713-web-02 54.242.204.48:80 check
+
